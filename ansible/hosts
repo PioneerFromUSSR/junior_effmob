@@ -1,0 +1,2 @@
+[default]
+172.17.18.162 ansible_sudo_pass=22

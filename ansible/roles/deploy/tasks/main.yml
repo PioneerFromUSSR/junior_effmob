@@ -1,0 +1,25 @@
+---
+- name: Fetch the repo from GitHub
+  git:
+    repo: https://github.com/PioneerFromUSSR/junior_effmob.git
+    clone: yes
+    dest: /app
+    force: yes
+- name: Sets Nginx conf file
+  template:
+    src: files/nginx.conf.j2
+    dest: /app/app/docker/nginx/nginx.conf
+- name: UFW - Allow HTTP on port 80
+  ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
+- name: Sets Up PHP Info Page
+  template:
+    src: files/info.php.j2
+    dest: /app/app/src/info.php
+- name: Docker compose run
+  community.docker.docker_compose:
+    project_src: /app/app
+    files:
+      - docker-compose.yml
