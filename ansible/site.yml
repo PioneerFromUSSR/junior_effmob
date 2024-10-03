@@ -1,0 +1,12 @@
+---
+- name: Install app
+  hosts: default
+  become_user: root
+  vars:
+    user: "root"
+    password: "toor"
+  become: true
+  roles:
+    - bootstrap
+    - docker
+    - deploy
